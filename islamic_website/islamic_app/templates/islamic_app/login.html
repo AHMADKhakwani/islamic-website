@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Islamic Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: linear-gradient(135deg, #1a5e39, #0d8b51); font-family: 'Poppins', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 400px; background: white; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #1a5e39, #0d8b51); padding: 30px 20px; text-align: center; color: white; }
+        .header h2 { margin-top: 10px; font-weight: 600; }
+        .login-box { padding: 30px; }
+        .input-box { position: relative; margin-bottom: 20px; }
+        .input-box input { width: 100%; padding: 15px 40px 15px 15px; border-radius: 8px; border: 2px solid #e0e0e0; font-size: 1em; transition: all 0.3s; }
+        .input-box input:focus { border-color: #1a5e39; outline: none; }
+        .input-box label { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #757575; pointer-events: none; background: white; padding: 0 5px; transition: 0.3s; }
+        .input-box input:focus ~ label, .input-box input:valid ~ label { top: -8px; font-size: 0.8em; color: #1a5e39; font-weight: 600; }
+        .icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #757575; }
+        button { width: 100%; padding: 15px; background: #1a5e39; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; transition: all 0.3s; }
+        button:hover { background: #0d8b51; }
+        .error-message { color: #d32f2f; font-size: 0.85rem; margin-top: 5px; }
+        .success-message { color: #1a5e39; font-size: 0.85rem; margin-top: 5px; }
+        .messages { margin-bottom: 15px; }
+        .register-link { font-size: 0.9rem; text-align: center; margin-top: 15px; }
+        .register-link a { color: #1a5e39; font-weight: 600; text-decoration: none; }
+        .register-link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <i class="fas fa-graduation-cap fa-2x"></i>
+            <h2>Login</h2>
+        </div>
+        <div class="login-box">
+            {% if messages %}
+                <div class="messages" style="margin-bottom: 20px;">
+                    {% for message in messages %}
+                        <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}" style="padding: 10px; border-radius: 5px; margin-bottom: 10px; text-align: center;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form method="POST" action="{% url 'islamic_app:login' %}">
+                {% csrf_token %}
+
+                <div class="input-box">
+                    <input type="text" name="username" required>
+                    <label>Username</label>
+                    <span class="icon">👤</span>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                    <span class="icon">🔒</span>
+                </div>
+
+                <button type="submit">Login</button>
+
+                <div class="register-link">
+                    <p>Don't have an account? <a href="{% url 'islamic_app:signup' %}">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,791 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Islamic Academy</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/fav1 (1).png' %}">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f9f7f2;
+    }
+
+    /* Header Styles */
+    header {
+        background: linear-gradient(135deg, #0d5529 0%, #1a7e3e 100%);
+        color: white;
+        padding: 1.5rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo span:first-child {
+        font-size: 2rem;
+        color: #f8d568;
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+        font-size: 1.1rem;
+        font-weight: 500;
+        position: relative;
+    }
+
+    .nav-links a:hover {
+        color: #f8d568;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: #f8d568;
+        transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    /* Page Header */
+    .page-header {
+        background: linear-gradient(rgba(13, 85, 41, 0.85), rgba(26, 126, 62, 0.85)), url(/islam/PICS/islam1.jpg);
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 150px 2rem 80px;
+        text-align: center;
+        margin-top: 70px;
+        position: relative;
+    }
+
+    .page-header h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        animation: fadeInUp 1s;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .page-header p {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    /* Our Story Section */
+    .our-story {
+        padding: 80px 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .story-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        margin-bottom: 3rem;
+    }
+
+    .story-text h2 {
+        color: #1a7e3e;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .story-text h2::after {
+        content: '';
+        position: absolute;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(to right, #1a7e3e, #f8d568);
+        bottom: 0;
+        left: 0;
+        border-radius: 2px;
+    }
+
+    .story-text p {
+        color: #555;
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+
+    .story-image {
+        height: 400px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        transition: transform 0.5s;
+        position: relative;
+    }
+
+    .story-image:hover {
+        transform: translateY(-10px);
+    }
+
+    .story-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+
+    .story-image:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Mission & Vision Section */
+    .mission-vision {
+        padding: 80px 2rem;
+        background: linear-gradient(135deg, #f0f7f2 0%, #e8f4ec 100%);
+        cursor: pointer;
+    }
+
+    .mission-vision-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #1a7e3e;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(to right, #1a7e3e, #f8d568);
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+    }
+
+    .section-subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 3rem;
+        font-size: 1.1rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mv-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 3rem;
+    }
+
+    .mv-card {
+        background: white;
+        border-radius: 15px;
+        padding: 3rem;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mv-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, #1a7e3e, #f8d568);
+    }
+
+    .mv-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .mv-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        color: #1a7e3e;
+    }
+
+    .mv-card h3 {
+        color: #1a7e3e;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .mv-card p {
+        color: #555;
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+
+    /* Core Values Section */
+    .core-values {
+        padding: 80px 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .value-card {
+        background: linear-gradient(135deg, #1a7e3e 0%, #0d5529 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 2.5rem;
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .value-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(248, 213, 104, 0.1) 0%, transparent 100%);
+    }
+
+    .value-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .value-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #f8d568;
+    }
+
+    .value-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #f8d568;
+    }
+
+    .value-card p {
+        line-height: 1.6;
+        opacity: 0.95;
+    }
+
+    /* Statistics Section */
+    .statistics {
+        padding: 80px 2rem;
+        background: linear-gradient(135deg, #0d5529 0%, #1a7e3e 100%);
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .statistics::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+
+    .stats-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 3rem;
+        text-align: center;
+        margin-top: 3rem;
+    }
+
+    .stat-item {
+        padding: 2rem;
+    }
+
+    .stat-number {
+        font-size: 3.5rem;
+        font-weight: bold;
+        color: #f8d568;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .stat-label {
+        font-size: 1.2rem;
+        opacity: 0.95;
+    }
+
+    /* Why Choose Us Section */
+    .why-choose {
+        padding: 80px 2rem;
+        background: linear-gradient(135deg, #f0f7f2 0%, #e8f4ec 100%);
+    }
+
+    .why-choose-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .feature-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        display: flex;
+        gap: 1.5rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(to bottom, #1a7e3e, #f8d568);
+    }
+
+    .feature-card:hover {
+        transform: translateX(10px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: #1a7e3e;
+        flex-shrink: 0;
+    }
+
+    .feature-content h3 {
+        color: #1a7e3e;
+        margin-bottom: 0.5rem;
+        font-size: 1.4rem;
+    }
+
+    .feature-content p {
+        color: #555;
+        line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+        background: linear-gradient(135deg, #0d5529 0%, #1a7e3e 100%);
+        color: white;
+        padding: 3rem 2rem 1rem;
+        position: relative;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .footer-section h3 {
+        color: #f8d568;
+        margin-bottom: 1rem;
+        font-size: 1.4rem;
+    }
+
+    .footer-section ul {
+        list-style: none;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+        color: #f8d568;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        position: relative;
+        z-index: 1;
+    }
+
+    .auth-btns {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .auth-btns a {
+        padding: 0.5rem 0.9rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 0.9rem;
+      }
+
+      .login-btn {
+        border: 1px solid #fff;
+        color: #ffd8bf;
+      }
+
+      .signup-btn,
+      .logout-btn {
+        background: linear-gradient(90deg, #ff7a45, #ff9c6e);
+        color: #1a1a1a;
+      }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+        }
+
+        .story-content {
+            grid-template-columns: 1fr;
+        }
+
+        .mv-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .feature-card {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .feature-card::before {
+            width: 100%;
+            height: 5px;
+        }
+
+
+    }
+</style>
+<body>
+    
+    <!-- Header -->
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <span>☪</span>
+                <span>Islamic Academy</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'islamic_app:index' %}">Home</a></li>
+                <li><a href="{% url 'islamic_app:about' %}">About</a></li>
+                <li><a href="{% url 'islamic_app:courses' %}">Courses</a></li>
+                <li><a href="{% url 'islamic_app:tutor' %}">Tutors</a></li>
+                <li><a href="{% url 'islamic_app:contact' %}">Contact</a></li>
+                <li><a href="{% url 'islamic_app:quiz_list' %}">Quiz</a></li>
+                {% comment %} <li><a href="#reviews">Reviews</a></li> {% endcomment %}
+                {% comment %} <li><a href="{% url 'islamic_app:enrollment' %}">Enrollment</a></li> {% endcomment %}
+            </ul>
+            <div class="auth-btns">
+          {% if user.is_authenticated %}
+          <a href="{% url 'islamic_app:logout' %}" class="logout-btn">Logout</a>
+          {% else %}
+          <a href="{% url 'islamic_app:login' %}" class="login-btn">Login</a>
+          <a href="{% url 'islamic_app:signup' %}" class="signup-btn">Sign Up</a>
+          {% endif %}
+        </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>About Islamic Academy</h1>
+        <p>Nurturing Faith, Knowledge, and Character Through Authentic Islamic Education</p>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="our-story">
+        <div class="story-content">
+            <div class="story-text">
+                <h2>Our Story</h2>
+                <p>Islamic Academy was founded with a simple yet profound vision — to make authentic Islamic education accessible to Muslims around the world, regardless of their location, background, or circumstances.</p>
+                <p>What began as a humble community initiative with only a few dedicated students has grown into a flourishing institution that now serves thousands of learners across the globe. Throughout this remarkable journey, our path has been illuminated by the principles of excellence, authenticity, and compassion.</p>
+                <p>Today, Islamic Academy stands as a beacon of knowledge and faith, uniting the timeless wisdom of traditional scholarship with the innovation of modern teaching methodologies. Our mission is not only to educate minds but also to enrich hearts, nurturing a deep understanding of Islam that inspires spiritual growth, moral integrity, and lifelong learning.</p>
+            </div>
+            <div class="story-image">
+                <img src="{% static 'islamic_app/images/our story2.avif' %}" alt="Our Story">
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="mission-vision">
+        <div class="mission-vision-container">
+            <h2 class="section-title">Mission & Vision</h2>
+            <p class="section-subtitle">At Islamic Academy, our mission is to provide accessible, authentic, and high-quality Islamic education that nurtures both the mind and the soul...</p>
+            <div class="mv-grid">
+                <div class="mv-card">
+                    <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Our Mission</h3>
+                    <p>To provide comprehensive, authentic Islamic education that empowers students to live according to the teachings of the Quran and Sunnah, fostering spiritual growth, intellectual development, and moral excellence in a supportive learning environment.</p>
+                </div>
+                <div class="mv-card">
+                    <div class="mv-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Our Vision</h3>
+                    <p>To be the leading global institution for Islamic education, recognized for academic excellence, spiritual development, and community engagement, producing knowledgeable, pious, and socially responsible Muslims who contribute positively to society.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values -->
+    <section class="core-values">
+        <h2 class="section-title">Our Core Values</h2>
+        <p class="section-subtitle">The principles that guide everything we do</p>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-book-open"></i></div>
+                <h3>Knowledge</h3>
+                <p>Pursuit of authentic Islamic knowledge as a means to draw closer to Allah and serve humanity.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-heart"></i></div>
+                <h3>Compassion</h3>
+                <p>Treating all with mercy, kindness, and understanding as taught by our beloved Prophet (PBUH).</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-balance-scale"></i></div>
+                <h3>Integrity</h3>
+                <p>Upholding honesty, trustworthiness, and moral principles in all our actions and interactions.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-users"></i></div>
+                <h3>Community</h3>
+                <p>Building strong, supportive communities that nurture spiritual growth and mutual care.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="statistics">
+        <div class="stats-container">
+            <h2 class="section-title" style="color: white;">Our Impact</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Making a difference in the lives of Muslims worldwide</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">5000+</span>
+                    <div class="stat-label">Students Enrolled</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <div class="stat-label">Qualified Teachers</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">25+</span>
+                    <div class="stat-label">Countries Reached</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15+</span>
+                    <div class="stat-label">Courses Offered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose">
+        <div class="why-choose-container">
+            <h2 class="section-title">Why Choose Islamic Academy</h2>
+            <p class="section-subtitle">Discover what makes us the preferred choice for Islamic education</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-user-graduate"></i></div>
+                    <div class="feature-content">
+                        <h3>Qualified Instructors</h3>
+                        <p>Learn from certified scholars and educators with traditional Islamic training and modern teaching expertise.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-laptop-house"></i></div>
+                    <div class="feature-content">
+                        <h3>Flexible Learning</h3>
+                        <p>Access our courses from anywhere in the world with flexible schedules that fit your lifestyle.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-hands-helping"></i></div>
+                    <div class="feature-content">
+                        <h3>Supportive Community</h3>
+                        <p>Join a vibrant community of learners who support and encourage each other's spiritual journey.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-book-quran"></i></div>
+                    <div class="feature-content">
+                        <h3>Authentic Curriculum</h3>
+                        <p>Study from carefully designed courses based on authentic sources and traditional scholarship.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                    <div class="feature-content">
+                        <h3>Interactive Classes</h3>
+                        <p>Engage in live sessions with opportunities for questions, discussions, and personalized feedback.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-star"></i></div>
+                    <div class="feature-content">
+                        <h3>Proven Results</h3>
+                        <p>Join thousands of satisfied students who have transformed their understanding and practice of Islam.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Islamic Academy</h3>
+                <p>Nurturing Faith, Knowledge, and Character through comprehensive Islamic education.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{% url 'islamic_app:index' %}">Home</a></li>
+                    <li><a href="{% url 'islamic_app:courses' %}">Courses</a></li>
+                    <li><a href="{% url 'islamic_app:about' %}">About Us</a></li>
+                    <li><a href="{% url 'islamic_app:tutor' %}">Teachers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> info@islamicacademy.com</li>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Learning St, City</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Islamic Academy. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

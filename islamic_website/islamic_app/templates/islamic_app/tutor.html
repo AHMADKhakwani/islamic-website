@@ -1,0 +1,941 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Tutors - Islamic Academy</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'islam/fav1 (1).png' %}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'Tutor.css' %}">
+</head>
+<style>
+    * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 50%, #1a472a 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1e7e34 0%, #0d4d20 100%);
+            color: white;
+            padding: 2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        nav {
+             max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+             font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span:first-child {
+            font-size: 2rem;
+            color: #d4af37;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 20px;
+        }
+
+        .nav-links a:hover {
+            color: #63e66e;
+        }
+
+        /* Hero Section */
+        .tutors-hero {
+            margin-top: 70px;
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+             background: linear-gradient(135deg, #1e7e34 0%, #0d4d20 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tutors-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="rgba(255,255,255,0.05)"></path></svg>') repeat-x;
+            opacity: 0.3;
+            animation: wave 20s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { background-position: 0 0; }
+            100% { background-position: 1200px 0; }
+        }
+
+        .tutors-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .tutors-hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Main Content */
+        .container-custom {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-intro {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .section-intro h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #d4af37;
+        }
+
+        .section-intro p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Compact Tutors Grid */
+        .tutors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Hexagon Card Style */
+        .tutor-card.hexagon-style {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tutor-card.hexagon-style::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .tutor-card.hexagon-style:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .tutor-card.hexagon-style:hover::before {
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+
+        .hexagon-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a472a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            border: 4px solid #d4af37;
+        }
+
+        .hexagon-avatar::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .tutor-name {
+            font-size: 1.4rem;
+            color: #1a472a;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .tutor-title {
+            color: #d4af37;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .tutor-bio {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .tutor-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a472a;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .specializations-compact {
+            margin-bottom: 1.5rem;
+        }
+
+        .specializations-compact h4 {
+            color: #1a472a;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tags-compact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+        }
+
+        .tag-compact {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            color: #1a472a;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            border: 1px solid #d4af37;
+            font-weight: 500;
+        }
+
+        .btn-tutor-compact {
+            background: linear-gradient(135deg, #1a472a, #2d5a3d);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .btn-tutor-compact:hover {
+            background: linear-gradient(135deg, #d4af37, #c8a030);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            color: white;
+        }
+
+        /* Diamond Card Style */
+        .tutor-card.diamond-style {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            text-align: left;
+        }
+
+        .tutor-card.diamond-style::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37, #1a472a);
+        }
+
+        .diamond-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .diamond-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a472a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            flex-shrink: 0;
+            border: 3px solid #d4af37;
+        }
+
+        .diamond-info {
+            flex: 1;
+        }
+
+        .diamond-name {
+            font-size: 1.3rem;
+            color: #1a472a;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+
+        .diamond-title {
+            color: #d4af37;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .diamond-bio {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .diamond-highlights {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-item {
+            text-align: center;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid #d4af37;
+        }
+
+        .highlight-value {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a472a;
+        }
+
+        .highlight-label {
+            font-size: 0.75rem;
+            color: #777;
+        }
+
+        /* Circle Card Style */
+        .tutor-card.circle-style {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .circle-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a472a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            border: 3px solid #d4af37;
+        }
+
+        .circle-name {
+            font-size: 1.2rem;
+            color: #1a472a;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+
+        .circle-title {
+            color: #d4af37;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .circle-expertise {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .expertise-tag {
+            background: #e8f5e9;
+            color: #1a472a;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            border: 1px solid #c8e6c9;
+        }
+
+        .circle-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .circle-stat {
+            text-align: center;
+        }
+
+        .circle-stat-value {
+            display: block;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a472a;
+        }
+
+        .circle-stat-label {
+            font-size: 0.7rem;
+            color: #777;
+        }
+
+        /* View More Button */
+        .view-more-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .btn-view-more {
+            background: transparent;
+            color: white;
+            border: 2px solid #d4af37;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-view-more:hover {
+            background: #d4af37;
+            color: #1a472a;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #0d1f13;
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #d4af37;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+        }
+
+        .auth-btns {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .auth-btns a {
+        padding: 0.5rem 0.9rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 0.9rem;
+      }
+
+      .login-btn {
+        border: 1px solid #fff;
+        color: #ffd8bf;
+      }
+
+      .signup-btn,
+      .logout-btn {
+        background: linear-gradient(90deg, #ff7a45, #ff9c6e);
+        color: #1a1a1a;
+      }
+
+
+        @media (max-width: 768px) {
+            .tutors-hero h1 {
+                font-size: 2rem;
+            }
+
+            .tutors-hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .tutors-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .diamond-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .diamond-highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+</style>
+<body>
+
+    <!-- Header -->
+     <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <span>☪</span>
+                <span>Islamic Academy</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'islamic_app:index' %}">Home</a></li>
+                <li><a href="{% url 'islamic_app:about' %}">About</a></li>
+                <li><a href="{% url 'islamic_app:courses' %}">Courses</a></li>
+                <li><a href="{% url 'islamic_app:tutor' %}">Tutors</a></li>
+                <li><a href="{% url 'islamic_app:contact' %}">Contact</a></li>
+                <li><a href="{% url 'islamic_app:quiz_list' %}">Quiz</a></li>
+                {% comment %} <li><a href="#reviews">Reviews</a></li> {% endcomment %}
+                {% comment %} <li><a href="{% url 'islamic_app:enrollment' %}">Enrollment</a></li> {% endcomment %}
+            </ul>
+            <div class="auth-btns">
+          {% if user.is_authenticated %}
+          <a href="{% url 'islamic_app:logout' %}" class="logout-btn">Logout</a>
+          {% else %}
+          <a href="{% url 'islamic_app:login' %}" class="login-btn">Login</a>
+          <a href="{% url 'islamic_app:signup' %}" class="signup-btn">Sign Up</a>
+          {% endif %}
+        </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="tutors-hero">
+        <h1>Meet Our Distinguished Tutors</h1>
+        <p>Learn from qualified scholars dedicated to your spiritual and academic growth</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container-custom">
+        <div class="section-intro">
+            <h2>Excellence in Islamic Education</h2>
+            <p>Our tutors are carefully selected for their deep knowledge, teaching expertise, and commitment to nurturing each student's journey in faith and learning.</p>
+        </div>
+
+        <div class="tutors-grid">
+
+            <!-- Tutor 1 - Hexagon Style -->
+            <div class="tutor-card hexagon-style">
+                <div class="hexagon-avatar">👳🏻</div>
+                <h2 class="tutor-name">Sheikh Ahmad Hassan</h2>
+                <p class="tutor-title">Quran & Tajweed Expert</p>
+                <p class="tutor-bio">Specializes in Quranic recitation and memorization with focus on proper Tajweed rules. Has helped 1500+ students complete Quran memorization.</p>
+                
+                <div class="tutor-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">15+</span>
+                        <span class="stat-label">Years Exp</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">4.9</span>
+                        <span class="stat-label">Rating</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">2</span>
+                        <span class="stat-label">Languages</span>
+                    </div>
+                </div>
+
+                <div class="specializations-compact">
+                    <h4>Expertise</h4>
+                    <div class="tags-compact">
+                        <span class="tag-compact">Quran Memorization</span>
+                        <span class="tag-compact">Tajweed</span>
+                        <span class="tag-compact">10 Qira'at</span>
+                    </div>
+                </div>
+
+                <a href="{% url 'islamic_app:courses' %}" class="btn-tutor-compact">Book Trial</a>
+            </div>
+
+            <!-- Tutor 2 - Diamond Style -->
+            <div class="tutor-card diamond-style">
+                <div class="diamond-header">
+                    <div class="diamond-avatar">👩🏼‍🏫</div>
+                    <div class="diamond-info">
+                        <h2 class="diamond-name">Dr. Fatima Ali</h2>
+                        <p class="diamond-title">Islamic Studies Scholar</p>
+                    </div>
+                </div>
+                <p class="diamond-bio">PhD in Islamic Jurisprudence with expertise in making complex fiqh concepts accessible to all students.</p>
+                
+                <div class="diamond-highlights">
+                    <div class="highlight-item">
+                        <span class="highlight-value">12+</span>
+                        <span class="highlight-label">Years Experience</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-value">4.8</span>
+                        <span class="highlight-label">Student Rating</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-value">3</span>
+                        <span class="highlight-label">Languages</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-value">PhD</span>
+                        <span class="highlight-label">Qualification</span>
+                    </div>
+                </div>
+
+                <div class="specializations-compact">
+                    <h4>Specializations</h4>
+                    <div class="tags-compact">
+                        <span class="tag-compact">Islamic Fiqh</span>
+                        <span class="tag-compact">Aqeedah</span>
+                        <span class="tag-compact">History</span>
+                    </div>
+                </div>
+
+                <a href="{% url 'islamic_app:courses' %}" class="btn-tutor-compact" style="width: 100%; text-align: center;">Book Trial Lesson</a>
+            </div>
+
+            <!-- Tutor 3 - Circle Style -->
+            <div class="tutor-card circle-style">
+                <div class="circle-avatar">👳🏻</div>
+                <h2 class="circle-name">Ustadh Omar Ibrahim</h2>
+                <p class="circle-title">Arabic Language Master</p>
+                
+                <div class="circle-expertise">
+                    <span class="expertise-tag">Classical Arabic</span>
+                    <span class="expertise-tag">Quranic Arabic</span>
+                    <span class="expertise-tag">Grammar</span>
+                </div>
+
+                <div class="circle-stats">
+                    <div class="circle-stat">
+                        <span class="circle-stat-value">10+</span>
+                        <span class="circle-stat-label">Years</span>
+                    </div>
+                    <div class="circle-stat">
+                        <span class="circle-stat-value">4.9</span>
+                        <span class="circle-stat-label">Rating</span>
+                    </div>
+                    <div class="circle-stat">
+                        <span class="circle-stat-value">3</span>
+                        <span class="circle-stat-label">Languages</span>
+                    </div>
+                </div>
+
+                <p class="tutor-bio">Native Arabic speaker with unique methodology for non-native speakers to achieve fluency quickly.</p>
+
+                <a href="{% url 'islamic_app:courses' %}" class="btn-tutor-compact">Start Learning</a>
+            </div>
+
+            <!-- Tutor 4 - Hexagon Style -->
+            <div class="tutor-card hexagon-style">
+                <div class="hexagon-avatar">👩🏼‍🏫</div>
+                <h2 class="tutor-name">Sister Aisha Rahman</h2>
+                <p class="tutor-title">Children's Education Specialist</p>
+                <p class="tutor-bio">Specializes in early childhood Islamic education with engaging, age-appropriate lessons and interactive activities.</p>
+                
+                <div class="tutor-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">8+</span>
+                        <span class="stat-label">Years Exp</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">4.9</span>
+                        <span class="stat-label">Rating</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">3</span>
+                        <span class="stat-label">Languages</span>
+                    </div>
+                </div>
+
+                <div class="specializations-compact">
+                    <h4>Expertise</h4>
+                    <div class="tags-compact">
+                        <span class="tag-compact">Kids Quran</span>
+                        <span class="tag-compact">Islamic Stories</span>
+                        <span class="tag-compact">Child Psychology</span>
+                    </div>
+                </div>
+
+                <a href="{% url 'islamic_app:courses' %}" class="btn-tutor-compact">Book Trial</a>
+            </div>
+
+            <!-- Tutor 5 - Diamond Style -->
+            <div class="tutor-card diamond-style">
+                <div class="diamond-header">
+                    <div class="diamond-avatar">👳🏻</div>
+                    <div class="diamond-info">
+                        <h2 class="diamond-name">Imam Muhammad Ali</h2>
+                        <p class="diamond-title">Hadith & Seerah Expert</p>
+                    </div>
+                </div>
+                <p class="diamond-bio">Specializes in prophetic traditions and biography of Prophet Muhammad (PBUH) with 20+ years teaching experience.</p>
+                
+                <div class="diamond-highlights">
+                    <div class="highlight-item">
+                        <span class="highlight-value">20+</span>
+                        <span class="highlight-label">Years Experience</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-value">5.0</span>
+                        <span class="highlight-label">Student Rating</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-value">2</span>
+                        <span class="highlight-label">Languages</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-value">PhD</span>
+                        <span class="highlight-label">Qualification</span>
+                    </div>
+                </div>
+
+                <div class="specializations-compact">
+                    <h4>Specializations</h4>
+                    <div class="tags-compact">
+                        <span class="tag-compact">Hadith Sciences</span>
+                        <span class="tag-compact">Seerah</span>
+                        <span class="tag-compact">Islamic Ethics</span>
+                    </div>
+                </div>
+
+                <a href="{% url 'islamic_app:courses' %}" class="btn-tutor-compact" style="width: 100%; text-align: center;">Book Trial Lesson</a>
+            </div>
+
+            <!-- Tutor 6 - Circle Style -->
+            <div class="tutor-card circle-style">
+                <div class="circle-avatar">👩🏼‍🏫</div>
+                <h2 class="circle-name">Ustadha Maryam Hussein</h2>
+                <p class="circle-title">Islamic Spirituality Teacher</p>
+                
+                <div class="circle-expertise">
+                    <span class="expertise-tag">Tazkiyah</span>
+                    <span class="expertise-tag">Psychology</span>
+                    <span class="expertise-tag">Mindfulness</span>
+                </div>
+
+                <div class="circle-stats">
+                    <div class="circle-stat">
+                        <span class="circle-stat-value">9+</span>
+                        <span class="circle-stat-label">Years</span>
+                    </div>
+                    <div class="circle-stat">
+                        <span class="circle-stat-value">4.8</span>
+                        <span class="circle-stat-label">Rating</span>
+                    </div>
+                    <div class="circle-stat">
+                        <span class="circle-stat-value">3</span>
+                        <span class="circle-stat-label">Languages</span>
+                    </div>
+                </div>
+
+                <p class="tutor-bio">Focuses on spiritual dimensions of Islam, helping students develop deeper connection with Allah through practical techniques.</p>
+
+                <a href="{% url 'islamic_app:courses' %}" class="btn-tutor-compact">Start Learning</a>
+            </div>
+
+        </div>
+
+        <div class="view-more-container">
+            <a href="{% url 'islamic_app:courses' %}" class="btn-view-more">View All Tutors & Enrollment</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Islamic Academy</h3>
+                <p>Nurturing Faith, Knowledge, and Character.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{% url 'islamic_app:index' %}">Home</a></li>
+                    <li><a href="{% url 'islamic_app:courses' %}">Courses</a></li>
+                    <li><a href="{% url 'islamic_app:about' %}">About Us</a></li>
+                    <li><a href="{% url 'islamic_app:tutor' %}">Tutors</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>Email: info@islamicacademy.com</li>
+                    <li>Phone: +1 (555) 123-4567</li>
+                    <li>Address: 123 Learning Street</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Islamic Academy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
